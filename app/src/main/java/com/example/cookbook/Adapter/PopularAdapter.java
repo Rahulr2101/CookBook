@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,6 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.Viewhold
 
     ArrayList<PopularDomain> items ;
     Context context;
-    ViewholderPupListBinding binding;
 
     public PopularAdapter(ArrayList<PopularDomain> list) {
         this.items = list;
@@ -28,21 +28,22 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.Viewhold
     @NonNull
     @Override
     public PopularAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding =  ViewholderPupListBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        ViewholderPupListBinding binding =  ViewholderPupListBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         context = parent.getContext();
         return new Viewholder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PopularAdapter.Viewholder holder, int position) {
-        binding.titleText.setText(items.get(position).getTitle());
-        int drawableResourced = holder.itemView.getResources().getIdentifier(items.get(position).getPicUrl(),"drawable",holder.itemView.getContext().getPackageName());
-        Glide.with(context).load(drawableResourced).transform(new GranularRoundedCorners(30,30,0,0)).into(binding.pic);
+        PopularDomain currentItem = items.get(position);
+
+        holder.binding.titleText.setText(currentItem.getTitle());
+        loadImage(currentItem.getPicUrl(), holder.binding.pic);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // Handle item click if needed
             }
         });
     }
@@ -53,8 +54,18 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.Viewhold
     }
 
     public class Viewholder extends RecyclerView.ViewHolder {
+        ViewholderPupListBinding binding;
+
         public Viewholder(ViewholderPupListBinding binding) {
             super(binding.getRoot());
+            this.binding = binding;
         }
+    }
+
+    private void loadImage(String url, ImageView imageView) {
+        Glide.with(context)
+                .load(url)
+                .transform(new GranularRoundedCorners(30, 30, 0, 0))
+                .into(imageView);
     }
 }

@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         ArrayList<PopularDomain> items = new ArrayList<>();
-
+        PopularAdapter adapter = new PopularAdapter(items);
+        binding.PopularView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
+        binding.PopularView.setAdapter(adapter);
 
         String url = "https://www.themealdb.com/api/json/v1/1/filter.php?a=Canadian";
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -49,28 +51,24 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            items.clear(); // Clear the list before adding new items
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray mealsArray = jsonObject.getJSONArray("meals");
-                            for(int i=0; i<mealsArray.length(); i++){
+                            for (int i = 0; i < mealsArray.length(); i++) {
                                 JSONObject singleitem = mealsArray.getJSONObject(i);
-                                items.add(new PopularDomain("item_1",singleitem.getString("strMeal")));
+                                items.add(new PopularDomain(singleitem.getString("strMealThumb"), singleitem.getString("strMeal")));
                             }
-                            // After populating the items list, set the adapter for the RecyclerView
-                            System.out.println(items.size()+" Looks working!!");
-                            binding.PopularView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,false));
-                            binding.PopularView.setAdapter(new PopularAdapter(items));
+                            adapter.notifyDataSetChanged(); // Notify adapter of data changes
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
-
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("api","onErrorResponse"+error.getLocalizedMessage());
+                        Log.e("api", "onErrorResponse" + error.getLocalizedMessage());
                     }
                 });
 
