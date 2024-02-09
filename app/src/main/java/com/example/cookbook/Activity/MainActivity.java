@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cookbook.Adapter.FilterAdapter;
 import com.example.cookbook.Adapter.PopularAdapter;
 import com.example.cookbook.R;
 import com.example.cookbook.databinding.ActivityMainBinding;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FilterAdapter.FilterClickListener {
     ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +38,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initRecyclerView() {
+    @Override
+    public void onFilterClicked(String filter){
+        String url = "https://www.themealdb.com/api/json/v1/1/filter.php?a=" + filter;
+        fetchRecipes(url);
+    }
+
+
+    public void fetchRecipes(String url){
+
         ArrayList<PopularDomain> items = new ArrayList<>();
+        ArrayList<String> filter = new ArrayList<>();
+        RequestQueue queue = Volley.newRequestQueue(this);
+
         PopularAdapter adapter = new PopularAdapter(items);
+
         binding.PopularView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
         binding.PopularView.setAdapter(adapter);
-
-        String url = "https://www.themealdb.com/api/json/v1/1/filter.php?a=Canadian";
-        RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -56,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                             JSONArray mealsArray = jsonObject.getJSONArray("meals");
                             for (int i = 0; i < mealsArray.length(); i++) {
                                 JSONObject singleitem = mealsArray.getJSONObject(i);
-                                items.add(new PopularDomain(singleitem.getString("strMealThumb"), singleitem.getString("strMeal")));
+                                items.add(new PopularDomain(singleitem.getString("strMealThumb"), singleitem.getString("strMeal"),singleitem.getString("idMeal")));
                             }
                             adapter.notifyDataSetChanged(); // Notify adapter of data changes
 
@@ -73,9 +83,27 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         queue.add(stringRequest);
+    }
+    private void initRecyclerView() {
+
+        ArrayList<String> filter = new ArrayList<>();
+        String defaultFilter = "Indian";
+        filter.add(defaultFilter);
+        filter.add("Canadian");
+        filter.add("French");
+        filter.add("Japanese");
+        filter.add("Russian");
+        filter.add("Spanish");
+        filter.add("Mexican");
+        FilterAdapter filterAdapter = new FilterAdapter(filter,this);
 
 
-//        binding.PopularView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-//        binding.PopularView.setAdapter(new PopularAdapter(items));
+
+        binding.filterView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,false));
+        binding.filterView.setAdapter(filterAdapter);
+
+
+        fetchRecipes("https://www.themealdb.com/api/json/v1/1/filter.php?a=" + defaultFilter);
+
     }
 }
