@@ -36,7 +36,6 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.Viewhold
     @Override
     public void onBindViewHolder(@NonNull PopularAdapter.Viewholder holder, int position) {
         PopularDomain currentItem = items.get(position);
-
         holder.binding.titleText.setText(currentItem.getTitle());
         loadImage(currentItem.getPicUrl(), holder.binding.pic);
 

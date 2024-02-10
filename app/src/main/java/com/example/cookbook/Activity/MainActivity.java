@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,12 +28,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements FilterAdapter.FilterClickListener {
     ActivityMainBinding binding;
+    TextView recipeCountTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        recipeCountTextView = binding.recipeCount;
 
         initRecyclerView();
 
@@ -53,8 +55,9 @@ public class MainActivity extends AppCompatActivity implements FilterAdapter.Fil
 
         PopularAdapter adapter = new PopularAdapter(items);
 
-        binding.PopularView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
+        binding.PopularView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
         binding.PopularView.setAdapter(adapter);
+
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -69,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements FilterAdapter.Fil
                                 items.add(new PopularDomain(singleitem.getString("strMealThumb"), singleitem.getString("strMeal"),singleitem.getString("idMeal")));
                             }
                             adapter.notifyDataSetChanged(); // Notify adapter of data changes
-
+                            recipeCountTextView.setText(items.size()+" recipes");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -87,11 +90,11 @@ public class MainActivity extends AppCompatActivity implements FilterAdapter.Fil
     private void initRecyclerView() {
 
         ArrayList<String> filter = new ArrayList<>();
-        String defaultFilter = "Indian";
-        filter.add(defaultFilter);
+        String defaultFilter = "French";
         filter.add("Canadian");
-        filter.add("French");
+        filter.add(defaultFilter);
         filter.add("Japanese");
+        filter.add("Indian");
         filter.add("Russian");
         filter.add("Spanish");
         filter.add("Mexican");

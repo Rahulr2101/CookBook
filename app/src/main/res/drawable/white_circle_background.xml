@@ -1,0 +1,8 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="300dp"/> <!-- Use a large value for the radius to ensure it appears circular -->
+            <solid android:color="@color/grey"/>
+        </shape>
+    </item>
+</selector>
