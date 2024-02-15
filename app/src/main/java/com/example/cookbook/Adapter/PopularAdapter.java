@@ -1,6 +1,7 @@
 package com.example.cookbook.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
+import com.example.cookbook.Activity.DetailActivity;
 import com.example.cookbook.databinding.ViewholderPupListBinding;
 import com.example.cookbook.domain.PopularDomain;
 
@@ -42,7 +44,9 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.Viewhold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Handle item click if needed
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("MEAL_ID",currentItem.getMealId());
+                context.startActivity(intent);
             }
         });
     }

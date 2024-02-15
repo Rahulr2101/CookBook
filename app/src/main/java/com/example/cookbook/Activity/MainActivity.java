@@ -18,6 +18,7 @@ import com.example.cookbook.Adapter.FilterAdapter;
 import com.example.cookbook.Adapter.PopularAdapter;
 import com.example.cookbook.R;
 import com.example.cookbook.databinding.ActivityMainBinding;
+import com.example.cookbook.domain.FilterItemDomain;
 import com.example.cookbook.domain.PopularDomain;
 
 import org.json.JSONArray;
@@ -42,8 +43,9 @@ public class MainActivity extends AppCompatActivity implements FilterAdapter.Fil
 
     @Override
     public void onFilterClicked(String filter){
-        String url = "https://www.themealdb.com/api/json/v1/1/filter.php?a=" + filter;
+        String url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + filter;
         fetchRecipes(url);
+
     }
 
 
@@ -89,15 +91,20 @@ public class MainActivity extends AppCompatActivity implements FilterAdapter.Fil
     }
     private void initRecyclerView() {
 
-        ArrayList<String> filter = new ArrayList<>();
-        String defaultFilter = "French";
-        filter.add("Canadian");
-        filter.add(defaultFilter);
-        filter.add("Japanese");
-        filter.add("Indian");
-        filter.add("Russian");
-        filter.add("Spanish");
-        filter.add("Mexican");
+        ArrayList<FilterItemDomain> filter = new ArrayList<>();
+        String defaultFilter = "Starter";
+        filter.add(new FilterItemDomain(defaultFilter,true));
+        filter.add(new FilterItemDomain("Breakfast",false));
+        filter.add(new FilterItemDomain("Dessert",false));
+        filter.add(new FilterItemDomain("Vegan",false));
+        filter.add(new FilterItemDomain("Vegetarian",false));
+        filter.add(new FilterItemDomain("Chicken",false));
+        filter.add(new FilterItemDomain("Pasta",false));
+        filter.add(new FilterItemDomain("Seafood",false));
+        filter.add(new FilterItemDomain("Side",false));
+        filter.add(new FilterItemDomain("Pork",false));
+        filter.add(new FilterItemDomain("Lamb",false));
+        FilterItemDomain.setFilterItemsList(filter);
         FilterAdapter filterAdapter = new FilterAdapter(filter,this);
 
 
@@ -106,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements FilterAdapter.Fil
         binding.filterView.setAdapter(filterAdapter);
 
 
-        fetchRecipes("https://www.themealdb.com/api/json/v1/1/filter.php?a=" + defaultFilter);
+        fetchRecipes("https://www.themealdb.com/api/json/v1/1/filter.php?c=" + defaultFilter);
 
     }
 }
