@@ -3,8 +3,10 @@ package com.example.cookbook.domain;
 import java.util.ArrayList;
 
 public class RecipeDetailDomain {
+
     private String mealId;
     private String strMeal;
+    private String videoUrl;
 
     private String strInstructions;
     private String RecipePic;
@@ -50,5 +52,11 @@ public class RecipeDetailDomain {
         IngredientsList = ingredientsList;
     }
 
+    public String getVideoUrl() {
+        return videoUrl;
+    }
 
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
 }

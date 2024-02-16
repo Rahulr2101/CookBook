@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -19,6 +20,9 @@ import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 import com.example.cookbook.R;
 import com.example.cookbook.databinding.ActivityDetailBinding;
 import com.example.cookbook.domain.RecipeDetailDomain;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,6 +70,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
                             binding.detailTitleName.setText(object.getStrMeal());
+                            object.setVideoUrl(mealObject.getString("strYoutube"));
                             object.setRecipePic(mealObject.getString("strMealThumb"));
                             object.setStrInstructions(mealObject.getString("strInstructions"));
 
@@ -85,7 +90,9 @@ public class DetailActivity extends AppCompatActivity {
                                 .load(object.getRecipePic())
                                 .transform(new GranularRoundedCorners(30, 30, 0, 0))
                                 .into( binding.recipePic);
+                        youtubePlayBack(object.getVideoUrl());
                     }
+
                 },
                 new Response.ErrorListener() {
                     @Override
@@ -109,7 +116,33 @@ public class DetailActivity extends AppCompatActivity {
 
 
     public void onBackButtonClicked(View view) {
-
         finish();
+    }
+
+    public void youtubePlayBack(String url){
+        String videoId ="null";
+
+
+        int index = url.indexOf("v=");
+        if (index != -1) {
+
+            videoId = url.substring(index + 2);
+            int endIndex = videoId.indexOf("&");
+            if (endIndex != -1) {
+                videoId = videoId.substring(0, endIndex);
+            }
+        }
+        YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
+        getLifecycle().addObserver(youTubePlayerView);
+
+        String finalVideoId = videoId;
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+
+                String Id = finalVideoId;
+                youTubePlayer.loadVideo(Id, 0);
+            }
+        });
     }
 }
