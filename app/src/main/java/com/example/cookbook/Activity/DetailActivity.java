@@ -23,8 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class DetailActivity extends AppCompatActivity {
     private ActivityDetailBinding binding;
     private RecipeDetailDomain object;
@@ -36,8 +34,8 @@ public class DetailActivity extends AppCompatActivity {
         binding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Initialize your LinearLayout for ingredients
-        ingredientLayout = findViewById(R.id.ingredient1);
+
+        ingredientLayout = findViewById(R.id.RecipeInst);
 
         object = new RecipeDetailDomain();
         object.setMealId(getIntent().getStringExtra("MEAL_ID").toString());
@@ -57,18 +55,19 @@ public class DetailActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray mealsArray = jsonObject.getJSONArray("meals");
 
-                            // Assuming there's only one item in the array for the specific mealId
+
                             JSONObject mealObject = mealsArray.getJSONObject(0);
 
-                            // Set recipe details to the RecipeDetailDomain object
+
                             object = new RecipeDetailDomain();
                             object.setMealId(mealObject.getString("idMeal"));
                             object.setStrMeal(mealObject.getString("strMeal"));
 
-                            // Set recipe title
+
                             binding.detailTitleName.setText(object.getStrMeal());
                             object.setRecipePic(mealObject.getString("strMealThumb"));
-                            // Populate ingredients LinearLayout with TextViews
+                            object.setStrInstructions(mealObject.getString("strInstructions"));
+
                             for (int i = 1; i <= 20; i++) {
                                 String ingredient = mealObject.getString("strIngredient" + i);
                                 String measure = mealObject.getString("strMeasure" + i);
@@ -76,6 +75,7 @@ public class DetailActivity extends AppCompatActivity {
                                     addIngredientTextView(ingredient, measure);
                                 }
                             }
+                            binding.recipeinst.setText(object.getStrInstructions());
 
                         } catch (JSONException e) {
                             e.printStackTrace();

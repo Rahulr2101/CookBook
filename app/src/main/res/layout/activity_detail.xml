@@ -58,9 +58,7 @@
                 <View
                     android:id="@+id/view"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_height="250dp"
                     android:background="@drawable/white_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -72,11 +70,12 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_margin="16dp"
-                    android:src="@drawable/placeholder_img"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/view"
                     app:layout_constraintStart_toStartOf="@+id/view"
-                    app:layout_constraintTop_toTopOf="@+id/view" />
+                    app:layout_constraintTop_toTopOf="@+id/view"
+                    tools:srcCompat="@drawable/grey_background" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -88,7 +87,7 @@
                 android:layout_marginStart="16sp"
                 android:text="TextView"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <!-- Divider -->
@@ -112,8 +111,18 @@
             <!-- Ingredients RecyclerViews -->
 
             <!-- Divider -->
+            <View
+                android:id="@+id/view4"
+                android:layout_width="30dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/green_underline"
+                />
+
             <LinearLayout
-                android:id="@+id/ingredient1"
+                android:id="@+id/RecipeInst"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -138,14 +147,28 @@
                 android:text="Prepare your Dish"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                tools:textStyle="bold" />
+                android:textStyle="bold" />
 
-            <!-- RecyclerView for preparation steps -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dishInst"
+            <View
+                android:id="@+id/view3"
+                android:layout_width="30dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/green_underline"  />
+
+            <TextView
+                android:id="@+id/recipeinst"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:text="TextView"
+                android:textColor="@color/black" />
+
+            <!-- RecyclerView for preparation steps -->
 
         </LinearLayout>
     </ScrollView>
