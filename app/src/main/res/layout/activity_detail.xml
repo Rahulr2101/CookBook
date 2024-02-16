@@ -30,7 +30,8 @@
                     android:layout_marginTop="24dp"
                     android:src="@drawable/arrow"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:onClick="onBackButtonClicked" />
 
                 <!-- Right image -->
                 <ImageView
@@ -117,9 +118,8 @@
                 android:layout_height="4dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/green_underline"
-                />
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/green_underline" />
 
             <LinearLayout
                 android:id="@+id/RecipeInst"
@@ -155,8 +155,8 @@
                 android:layout_height="4dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/green_underline"  />
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/green_underline" />
 
             <TextView
                 android:id="@+id/recipeinst"

@@ -2,6 +2,7 @@ package com.example.cookbook.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -104,5 +105,11 @@ public class DetailActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         ingredientLayout.addView(textView);
+    }
+
+
+    public void onBackButtonClicked(View view) {
+
+        finish();
     }
 }
