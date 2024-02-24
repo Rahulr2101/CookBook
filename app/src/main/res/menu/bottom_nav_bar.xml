@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/favorite"
+        android:title="Favorite"
+        android:icon="@drawable/ic_favorite" />
+    <item
+        android:id="@+id/fab"
+        android:title=""
+        android:enabled="false"
+        />
+    <item
+        android:id="@+id/search"
+        android:title="Search"
+        android:icon="@drawable/ic_search" />
+</menu>
