@@ -4,10 +4,9 @@
         android:title="Favorite"
         android:icon="@drawable/ic_favorite" />
     <item
-        android:id="@+id/fab"
-        android:title=""
-        android:enabled="false"
-        />
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/search"
         android:title="Search"

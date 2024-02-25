@@ -22,16 +22,14 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        clearBottomNavigationViewSelection();
         replaceFragment(new home());
-
-
-
         binding.bottomNavigationView.setBackground(null);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             final int id =  item.getItemId();
             if(id == R.id.search) {
                 replaceFragment(new search());
+            } else if (id == R.id.home) {
+                replaceFragment(new home());
             } else if (id == R.id.favorite) {
                 replaceFragment(new favorite());
             }
@@ -39,16 +37,8 @@ public class MainActivity extends AppCompatActivity{
             return true;
         });
 
-        binding.homebut.setOnClickListener(view -> {
-            replaceFragment(new home());
-            clearBottomNavigationViewSelection();
-        });
 
-    }
 
-    private void clearBottomNavigationViewSelection() {
-        binding.bottomNavigationView.getMenu().getItem(0).setChecked(false);
-        binding.bottomNavigationView.getMenu().getItem(1).setChecked(false);
     }
 
     private  void replaceFragment(Fragment fragment){
