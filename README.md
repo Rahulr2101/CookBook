@@ -38,9 +38,9 @@ This Android Recipe App allows users to search for food recipes, receive food re
 
 ## Screenshots
 <p align="center">
-  <img src="https://github.com/Rahulr2101/CookBook/blob/main/Screenshot_20240816_003818_CookBook.jpg" alt="Screenshot 1" width="33%">
-  <img src="https://github.com/Rahulr2101/CookBook/blob/main/Screenshot_20240816_003838_CookBook.jpg" alt="Screenshot 2" width="33%">
-  <img src="https://github.com/Rahulr2101/CookBook/blob/main/Screenshot_20240816_003852_CookBook.jpg" alt="Screenshot 2" width="33%">
+  <img src="https://github.com/Rahulr2101/CookBook/blob/main/Screenshot_20240816_003818_CookBook.jpg" alt="Screenshot 1" width="30%">
+  <img src="https://github.com/Rahulr2101/CookBook/blob/main/Screenshot_20240816_003838_CookBook.jpg" alt="Screenshot 2" width="30%">
+  <img src="https://github.com/Rahulr2101/CookBook/blob/main/Screenshot_20240816_003852_CookBook.jpg" alt="Screenshot 2" width="30%">
 
 </p>
 
